@@ -1,15 +1,16 @@
 package com.rafaelfiume.receipt.details;
 
-import com.rafaelfiume.receipt.details.matchers.ProductMatcher;
+import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.money.MonetaryAmount;
 import java.util.List;
 
-import static com.rafaelfiume.receipt.details.ProductCategory.BOOK;
-import static com.rafaelfiume.receipt.details.ProductCategory.FOOD;
-import static com.rafaelfiume.receipt.details.ProductCategory.MEDIA;
+import static com.rafaelfiume.receipt.details.MoneyDealer.moneyOf;
 import static com.rafaelfiume.receipt.details.matchers.ProductMatcher.one;
+import static com.rafaelfiume.receipt.details.support.ProductFactory.*;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -36,19 +37,22 @@ public class BasketTest {
         assertThat(selectedProducts, contains(one(book()), one(musicCD()), one(chocolateBar())));
     }
 
-    private Product a(Product p) {
-        return p;
+    @Test
+    public void shouleCalculateTotalTaxesForRegularProductsInTheBasket() {
+        basket.add(a(book())).add(a(musicCD())).add(a(chocolateBar()));
+
+        assertThat(basket.totalTaxesToPay(), isTheAmountOf("1.50"));
     }
 
-    private Product book() {
-        return new Product("book", BOOK, "12.49");
+    @Test
+    public void shouleCalculateTotalPriceForRegularProductsInTheBasket() {
+        basket.add(a(book())).add(a(musicCD())).add(a(chocolateBar()));
+
+        assertThat(basket.totalPrice(), isTheAmountOf("29.83"));
     }
 
-    private Product musicCD() {
-        return new Product("music CD", MEDIA, "14.99");
+    private Matcher<MonetaryAmount> isTheAmountOf(String price) {
+        return Matchers.is(moneyOf(price));
     }
 
-    private Product chocolateBar() {
-        return new Product("chocolate bar", FOOD, "0.85");
-    }
 }

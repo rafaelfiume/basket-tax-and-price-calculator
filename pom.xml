@@ -17,8 +17,14 @@
     </properties>
 
     <dependencies>
-        <!-- Test stuff -->
 
+        <dependency>
+            <groupId>org.javamoney</groupId>
+            <artifactId>moneta</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!-- Test stuff -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

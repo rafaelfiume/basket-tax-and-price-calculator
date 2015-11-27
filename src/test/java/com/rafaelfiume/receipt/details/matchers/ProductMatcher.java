@@ -1,17 +1,21 @@
 package com.rafaelfiume.receipt.details.matchers;
 
+import com.rafaelfiume.receipt.details.MoneyDealer;
 import com.rafaelfiume.receipt.details.Product;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
+import javax.money.MonetaryAmount;
+
+import static com.rafaelfiume.receipt.details.MoneyDealer.moneyOf;
 import static java.lang.String.format;
 
 public class ProductMatcher extends TypeSafeMatcher<Product> {
 
     private final String name;
-    private final String price;
+    private final MonetaryAmount price;
 
-    public ProductMatcher(String name, String price) {
+    public ProductMatcher(String name, MonetaryAmount price) {
         this.name = name;
         this.price = price;
     }
@@ -20,7 +24,7 @@ public class ProductMatcher extends TypeSafeMatcher<Product> {
         return one(p.name(), p.price());
     }
 
-    public static ProductMatcher one(String name, String price) {
+    public static ProductMatcher one(String name, MonetaryAmount price) {
         return new ProductMatcher(name, price);
     }
 

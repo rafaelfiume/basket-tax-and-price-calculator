@@ -2,18 +2,19 @@ package com.rafaelfiume.receipt.details;
 
 import com.googlecode.yatspec.junit.Notes;
 import com.googlecode.yatspec.junit.SpecRunner;
-import com.googlecode.yatspec.state.givenwhenthen.*;
-import com.rafaelfiume.receipt.details.matchers.ProductMatcher;
+import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
+import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
+import com.googlecode.yatspec.state.givenwhenthen.TestState;
 import org.hamcrest.Matcher;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.money.MonetaryAmount;
 import java.util.List;
 
+import static com.rafaelfiume.receipt.details.matchers.MonetaryAmountMatchersFactory.is;
 import static com.rafaelfiume.receipt.details.matchers.ProductMatcher.one;
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.is;
 
 @RunWith(SpecRunner.class)
 public class CalculateReceiptDetailsTest extends TestState {
@@ -34,9 +35,8 @@ public class CalculateReceiptDetailsTest extends TestState {
                 and(one("chocolate bar", at("0.85"))))
         );
 
-        // coming soon
-        //and(basketTotalTaxes(), is("1.50"));
-        //and(basketTotalPrice(), is("28.83"));
+        and(basketTotalTaxes(), is("1.50"));
+        and(basketTotalPrice(), is("29.83"));
     }
 
     private ActionUnderTest clientAddsToTheBasket(Product p, Product p1, Product p2) {
@@ -56,11 +56,11 @@ public class CalculateReceiptDetailsTest extends TestState {
         return capturedInputAndOutputs1 -> basketManager.selectedProducts();
     }
 
-    private StateExtractor<String> basketTotalTaxes() {
+    private StateExtractor<MonetaryAmount> basketTotalTaxes() {
         return capturedInputAndOutputs1 -> basketManager.totalTaxes();
     }
 
-    private StateExtractor<String> basketTotalPrice() {
+    private StateExtractor<MonetaryAmount> basketTotalPrice() {
         return capturedInputAndOutputs1 -> basketManager.totalPrice();
     }
 
@@ -76,16 +76,16 @@ public class CalculateReceiptDetailsTest extends TestState {
         return new Product("chocolate bar", ProductCategory.FOOD, price);
     }
 
-    private String at(String price) {
-        return price;
+    private MonetaryAmount at(String price) {
+        return MoneyDealer.moneyOf(price);
     }
 
     private Product and(Product p) {
         return p;
     }
 
-    private TestState and(StateExtractor<String> stateExtractor, Matcher<String> matcher) throws Exception {
-        return then(stateExtractor, matcher);
+    private TestState and(StateExtractor<MonetaryAmount> monetaryAmountStateExtractor, Matcher<MonetaryAmount> monetaryAmountMatcher) throws Exception {
+        return then(monetaryAmountStateExtractor, monetaryAmountMatcher);
     }
 
     //

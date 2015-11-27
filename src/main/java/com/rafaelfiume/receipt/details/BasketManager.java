@@ -1,5 +1,6 @@
 package com.rafaelfiume.receipt.details;
 
+import javax.money.MonetaryAmount;
 import java.util.List;
 
 public interface BasketManager {
@@ -8,7 +9,7 @@ public interface BasketManager {
 
     List<Product> selectedProducts();
 
-    String totalPrice();
+    MonetaryAmount totalPrice();
 
-    String totalTaxes();
+    MonetaryAmount totalTaxes();
 }

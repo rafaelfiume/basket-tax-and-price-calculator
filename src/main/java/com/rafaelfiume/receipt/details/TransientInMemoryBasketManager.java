@@ -1,11 +1,7 @@
 package com.rafaelfiume.receipt.details;
 
-import java.util.ArrayList;
+import javax.money.MonetaryAmount;
 import java.util.List;
-
-import static com.rafaelfiume.receipt.details.ProductCategory.BOOK;
-import static com.rafaelfiume.receipt.details.ProductCategory.FOOD;
-import static com.rafaelfiume.receipt.details.ProductCategory.MEDIA;
 
 /**
  * Not reusable basket manager: create a new one for each basket.
@@ -27,12 +23,12 @@ public class TransientInMemoryBasketManager implements BasketManager {
     }
 
     @Override
-    public String totalPrice() {
-        return null;
+    public MonetaryAmount totalPrice() {
+        return basket.totalPrice();
     }
 
     @Override
-    public String totalTaxes() {
-        return null;
+    public MonetaryAmount totalTaxes() {
+        return basket.totalTaxesToPay();
     }
 }
