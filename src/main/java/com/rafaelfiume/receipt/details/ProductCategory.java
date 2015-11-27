@@ -1,9 +1,10 @@
 package com.rafaelfiume.receipt.details;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import static com.rafaelfiume.receipt.details.MoneyDealer.moneyOf;
+import static java.math.BigDecimal.ROUND_CEILING;
+import static java.math.RoundingMode.CEILING;
 
 public enum ProductCategory implements TaxCalculator {
 
@@ -37,8 +38,8 @@ public enum ProductCategory implements TaxCalculator {
         final BigDecimal toTheNearest = new BigDecimal("0.05");
 
         final BigDecimal rounded = originalAmount
-                .divide(toTheNearest, 9, BigDecimal.ROUND_CEILING)
-                .setScale(0, RoundingMode.CEILING)
+                .divide(toTheNearest, ROUND_CEILING)
+                .setScale(0, CEILING)
                 .multiply(toTheNearest);
 
         return moneyOf(rounded);

@@ -17,6 +17,7 @@ import static com.rafaelfiume.receipt.details.ProductOrigin.IMPORTED;
 import static com.rafaelfiume.receipt.details.matchers.MonetaryAmountMatchersFactory.is;
 import static com.rafaelfiume.receipt.details.matchers.ProductMatcher.one;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasSize;
 
 @RunWith(SpecRunner.class)
 public class CalculateReceiptDetailsTest extends TestState {
@@ -36,6 +37,7 @@ public class CalculateReceiptDetailsTest extends TestState {
                 one("music CD", at("16.49")),
                 and(one("chocolate bar", at("0.85"))))
         );
+        and(theShoppingBasket(), hasSize(3));
 
         and(basketTotalTaxes(), is("1.50"));
         and(basketTotalPrice(), is("29.83"));
@@ -49,6 +51,7 @@ public class CalculateReceiptDetailsTest extends TestState {
                 one("imported box of chocolates", at("10.50")),
                 and(one("imported bottle of perfume", at("54.65"))))
         );
+        and(theShoppingBasket(), hasSize(2));
 
         and(basketTotalTaxes(), is("7.65"));
         and(basketTotalPrice(), is("65.15"));
@@ -68,6 +71,7 @@ public class CalculateReceiptDetailsTest extends TestState {
                 one("packet of headache pills", at("9.75")),
                 and(one("imported box of chocolates", at("11.85"))))
         );
+        and(theShoppingBasket(), hasSize(4));
 
         and(basketTotalTaxes(), is("6.70"));
         and(basketTotalPrice(), is("74.68"));
@@ -135,8 +139,8 @@ public class CalculateReceiptDetailsTest extends TestState {
         return p;
     }
 
-    private <T> TestState and(StateExtractor<T> BigDecimalStateExtractor, Matcher<T> BigDecimalMatcher) throws Exception {
-        return then(BigDecimalStateExtractor, BigDecimalMatcher);
+    private <T> TestState and(StateExtractor<T> extractor, Matcher<? super T> matcher) throws Exception {
+        return then(extractor, matcher);
     }
 
     //

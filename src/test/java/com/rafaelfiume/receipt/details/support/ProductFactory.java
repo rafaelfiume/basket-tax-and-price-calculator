@@ -5,7 +5,11 @@ import com.rafaelfiume.receipt.details.Product;
 import static com.rafaelfiume.receipt.details.ProductCategory.*;
 import static com.rafaelfiume.receipt.details.ProductOrigin.IMPORTED;
 
-public class ProductFactory {
+public final class ProductFactory {
+
+    private ProductFactory() {
+        // not instantiable
+    }
 
     public static Product a(Product p) {
         return p;

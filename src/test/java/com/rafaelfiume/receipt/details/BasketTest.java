@@ -25,7 +25,7 @@ public class BasketTest {
     }
 
     @Test
-    public void shouleBeAbleToRetrieveAddedItemsToTheBasket() {
+    public void shouldBeAbleToRetrieveAddedItemsToTheBasket() {
         // given
         basket.add(a(bookAt("12.49"))).add(a(musicCdAt("14.99"))).add(a(chocolateBarAt("0.85")));
 
@@ -38,14 +38,14 @@ public class BasketTest {
     }
 
     @Test
-    public void shouleCalculateTotalTaxesForRegularProductsInTheBasket() {
+    public void shouldCalculateTotalTaxesForProductsInTheBasket() {
         basket.add(a(bookAt("12.49"))).add(a(musicCdAt("14.99"))).add(a(chocolateBarAt("0.85")));
 
         assertThat(basket.totalTaxesToPay(), isTheAmountOf("1.50"));
     }
 
     @Test
-    public void shouleCalculateTotalPriceForRegularProductsInTheBasket() {
+    public void shouldCalculateTotalPriceForProductsInTheBasket() {
         basket.add(a(bookAt("12.49"))).add(a(musicCdAt("14.99"))).add(a(chocolateBarAt("0.85")));
 
         assertThat(basket.totalPrice(), isTheAmountOf("29.83"));

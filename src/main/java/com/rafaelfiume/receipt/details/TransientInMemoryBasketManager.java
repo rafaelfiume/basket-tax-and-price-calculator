@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Not reusable basket manager: create a new one for each basket.
  *
- * (This could be a first version o BasketManager or a class to help writing tests)
+ * (This could be a first version of a real BasketManager or a class to help writing tests)
  */
 public class TransientInMemoryBasketManager implements BasketManager {
 
