@@ -11,4 +11,8 @@ public class MoneyDealer {
         return Money.of(new BigDecimal(money), "EUR");
     }
 
+    public static MonetaryAmount moneyOf(BigDecimal money) {
+        return Money.of(money, "EUR");
+    }
+
 }

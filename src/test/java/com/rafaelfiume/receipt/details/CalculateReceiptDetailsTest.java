@@ -10,8 +10,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.money.MonetaryAmount;
+import java.math.BigDecimal;
 import java.util.List;
 
+import static com.rafaelfiume.receipt.details.ProductCategory.*;
+import static com.rafaelfiume.receipt.details.ProductOrigin.IMPORTED;
 import static com.rafaelfiume.receipt.details.matchers.MonetaryAmountMatchersFactory.is;
 import static com.rafaelfiume.receipt.details.matchers.ProductMatcher.one;
 import static org.hamcrest.Matchers.contains;
@@ -26,12 +29,12 @@ public class CalculateReceiptDetailsTest extends TestState {
             "and because I'm in a hurry ;)\n" +
             "As a proactive developer though, I created a to-be-played story for handling more than one customer (see README.md)")
     @Test
-    public void calculateTaxesAndTotalSalesPriceWhenClientBuysItems() throws Exception {
+    public void calculateTaxesAndTotalSalesPriceWhenClientBuysRegularItems() throws Exception {
         when(clientAddsToTheBasket(aBookAt("12.49"), aMusicCdAt("14.99"), and(aChocolateBarAt("0.85"))));
 
         then(theShoppingBasket(), lists(
                 one("book", at("12.49")),
-                one("music CD", at("14.99")),
+                one("music CD", at("16.49")),
                 and(one("chocolate bar", at("0.85"))))
         );
 
@@ -39,14 +42,27 @@ public class CalculateReceiptDetailsTest extends TestState {
         and(basketTotalPrice(), is("29.83"));
     }
 
-    private ActionUnderTest clientAddsToTheBasket(Product p, Product p1, Product p2) {
+    @Test
+    public void calculateTaxesAndTotalSalesPriceWhenClientBuysImportedItems() throws Exception {
+        when(clientAddsToTheBasket(anImportedBoxOfChocolatesAt("10.00"), and(anImportedBottleOfPerfumeAt("47.50"))));
+
+        then(theShoppingBasket(), lists(
+                one("imported box of chocolate", at("10.50")),
+                and(one("imported bottle of perfume", at("54.65"))))
+        );
+
+        and(basketTotalTaxes(), is("7.65"));
+        and(basketTotalPrice(), is("65.15"));
+    }
+
+    private ActionUnderTest clientAddsToTheBasket(Product... products) {
         return (interestingGivens1, capturedInputAndOutputs1) -> {
-            addProductsToBasket(p, p1, p2);
+            addProductsToBasketTheFollowingProducts(products);
             return capturedInputAndOutputs1;
         };
     }
 
-    private void addProductsToBasket(Product... products) {
+    private void addProductsToBasketTheFollowingProducts(Product... products) {
         for (Product p : products) {
             basketManager.add(p);
         }
@@ -65,15 +81,23 @@ public class CalculateReceiptDetailsTest extends TestState {
     }
 
     private Product aBookAt(String price) {
-        return new Product("book", ProductCategory.BOOK, price);
+        return new Product("book", BOOK, price);
     }
 
     private Product aMusicCdAt(String price) {
-        return new Product("music CD", ProductCategory.MEDIA, price);
+        return new Product("music CD", MEDIA, price);
     }
 
     private Product aChocolateBarAt(String price) {
-        return new Product("chocolate bar", ProductCategory.FOOD, price);
+        return new Product("chocolate bar", FOOD, price);
+    }
+
+    private Product anImportedBoxOfChocolatesAt(String price) {
+        return new Product("imported box of chocolate", FOOD, IMPORTED, price);
+    }
+
+    private Product anImportedBottleOfPerfumeAt(String price) {
+        return new Product("imported bottle of perfume", PERFUME, IMPORTED, price);
     }
 
     private MonetaryAmount at(String price) {
@@ -84,7 +108,7 @@ public class CalculateReceiptDetailsTest extends TestState {
         return p;
     }
 
-    private TestState and(StateExtractor<MonetaryAmount> monetaryAmountStateExtractor, Matcher<MonetaryAmount> monetaryAmountMatcher) throws Exception {
+    private <T> TestState and(StateExtractor<T> monetaryAmountStateExtractor, Matcher<T> monetaryAmountMatcher) throws Exception {
         return then(monetaryAmountStateExtractor, monetaryAmountMatcher);
     }
 

@@ -1,4 +1,4 @@
-# Tic-Tac-Toe [![Build Status](https://travis-ci.org/rafaelfiume/basket-tax-and-price-calculator.svg?branch=master)](https://travis-ci.org/rafaelfiume/basket-tax-and-price-calculator)
+# basket-tax-and-price-calculator/ [![Build Status](https://travis-ci.org/rafaelfiume/basket-tax-and-price-calculator.svg?branch=master)](https://travis-ci.org/rafaelfiume/basket-tax-and-price-calculator)
 
 Calculates tax and total price for shopping baskets.
 
@@ -25,9 +25,9 @@ The full path will be displayed in the console after "Yatspec output:".
 * ~~Calculate taxes~~
 * ~~Calculate total price~~
 
-### Calculate Basket Total Taxes and Price For Imported Items
-* Calculate taxes
-* Calculate total price
+### ~~Calculate Basket Total Taxes and Price For Imported Items~~
+* ~~Calculate taxes~~
+* ~~Calculate total price~~
 
 ### Calculate Basket Total Taxes and Price For Mixed Items - Imported or not
 * Calculate taxes
