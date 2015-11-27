@@ -1,18 +1,15 @@
 package com.rafaelfiume.receipt.details;
 
-import org.javamoney.moneta.Money;
-
-import javax.money.MonetaryAmount;
 import java.math.BigDecimal;
 
 public class MoneyDealer {
 
-    public static MonetaryAmount moneyOf(String money) {
-        return Money.of(new BigDecimal(money), "EUR");
+    public static BigDecimal moneyOf(String money) {
+        return new BigDecimal(money).setScale(2);
     }
 
-    public static MonetaryAmount moneyOf(BigDecimal money) {
-        return Money.of(money, "EUR");
+    public static BigDecimal moneyOf(BigDecimal money) {
+        return money.setScale(2);
     }
 
 }

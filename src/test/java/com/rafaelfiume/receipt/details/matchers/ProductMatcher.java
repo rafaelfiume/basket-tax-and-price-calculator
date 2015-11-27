@@ -4,16 +4,16 @@ import com.rafaelfiume.receipt.details.Product;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
-import javax.money.MonetaryAmount;
+import java.math.BigDecimal;
 
 import static java.lang.String.format;
 
 public class ProductMatcher extends TypeSafeMatcher<Product> {
 
     private final String name;
-    private final MonetaryAmount priceWithTaxes;
+    private final BigDecimal priceWithTaxes;
 
-    public ProductMatcher(String name, MonetaryAmount priceWithTaxes) {
+    public ProductMatcher(String name, BigDecimal priceWithTaxes) {
         this.name = name;
         this.priceWithTaxes = priceWithTaxes;
     }
@@ -22,7 +22,7 @@ public class ProductMatcher extends TypeSafeMatcher<Product> {
         return one(p.name(), p.priceWithTaxes());
     }
 
-    public static ProductMatcher one(String name, MonetaryAmount priceWithTaxes) {
+    public static ProductMatcher one(String name, BigDecimal priceWithTaxes) {
         return new ProductMatcher(name, priceWithTaxes);
     }
 
@@ -39,6 +39,6 @@ public class ProductMatcher extends TypeSafeMatcher<Product> {
 
     @Override
     protected void describeMismatchSafely(Product actual, Description mismatchDescription) {
-        mismatchDescription.appendText(format("product had name \"%s\" and priceWithTaxes \"%s\"", actual.name(), actual.price()));
+        mismatchDescription.appendText(format("product had name \"%s\" and priceWithTaxes \"%s\"", actual.name(), actual.priceWithTaxes()));
     }
 }

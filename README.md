@@ -16,7 +16,7 @@ After building the app with maven, or running the test with an IDE, check out th
 
     file:///{a.temp.directory}/com/rafaelfiume/receipt/details/CalculateReceiptDetailsTest.html
 
-The full path will be displayed in the console after "Yatspec output:".
+The full path will be displayed in the console after <<<Yatspec output:>>>.
 
 ## User Stories
 
@@ -29,8 +29,8 @@ The full path will be displayed in the console after "Yatspec output:".
 * ~~Calculate taxes~~
 * ~~Calculate total price~~
 
-### Calculate Basket Total Taxes and Price For Mixed Items - Imported or not
-* Calculate taxes
-* Calculate total price
+### ~~Calculate Basket Total Taxes and Price For Mixed Items - Imported or not~~
+* ~~Calculate taxes~~
+* ~~Calculate total price~~
 
 ### Supports More Than One Customer (Parent Story)

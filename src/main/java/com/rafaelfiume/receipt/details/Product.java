@@ -1,7 +1,7 @@
 package com.rafaelfiume.receipt.details;
 
 
-import javax.money.MonetaryAmount;
+import java.math.BigDecimal;
 
 import static com.rafaelfiume.receipt.details.ProductOrigin.REGULAR;
 
@@ -10,7 +10,7 @@ public class Product {
     private final String name;
     private final ProductCategory category;
     private final ProductOrigin origin;
-    private final MonetaryAmount price;
+    private final BigDecimal price;
 
     public Product(String name, ProductCategory category, String price) {
         this(name, category, REGULAR, price);
@@ -27,15 +27,19 @@ public class Product {
         return name;
     }
 
-    public MonetaryAmount price() {
+    public BigDecimal price() {
         return price;
     }
 
-    public MonetaryAmount tax() {
-        return category.calculateTax(this.price, this.origin);
+    public BigDecimal tax() {
+        return category.calculateTaxes(this.price, this.origin);
     }
 
-    public MonetaryAmount priceWithTaxes() {
+    public BigDecimal priceWithTaxes() {
+        System.out.println("name: " + name);
+        System.out.println("price: " + price);
+        System.out.println("tax: " + tax());
+
         return price.add(tax());
     }
 }

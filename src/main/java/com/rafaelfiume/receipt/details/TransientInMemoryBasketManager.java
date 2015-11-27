@@ -1,6 +1,6 @@
 package com.rafaelfiume.receipt.details;
 
-import javax.money.MonetaryAmount;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -23,12 +23,12 @@ public class TransientInMemoryBasketManager implements BasketManager {
     }
 
     @Override
-    public MonetaryAmount totalPrice() {
+    public BigDecimal totalPrice() {
         return basket.totalPrice();
     }
 
     @Override
-    public MonetaryAmount totalTaxes() {
+    public BigDecimal totalTaxes() {
         return basket.totalTaxesToPay();
     }
 }

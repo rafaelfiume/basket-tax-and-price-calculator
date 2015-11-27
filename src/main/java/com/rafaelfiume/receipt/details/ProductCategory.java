@@ -1,62 +1,52 @@
 package com.rafaelfiume.receipt.details;
 
-import javax.money.MonetaryAmount;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import static com.rafaelfiume.receipt.details.MoneyDealer.moneyOf;
-import static java.math.RoundingMode.HALF_EVEN;
-import static java.math.RoundingMode.HALF_UP;
 
 public enum ProductCategory implements TaxCalculator {
 
-    BOOK {
-        @Override
-        public MonetaryAmount calculateTax(MonetaryAmount price, ProductOrigin origin) {
-            return price.multiply(origin.taxRate().getNumber());
-        }
-    },
-
+    BOOK,
+    FOOD,
+    MEDICINE,
     MEDIA {
         @Override
-        public MonetaryAmount calculateTax(MonetaryAmount price, ProductOrigin origin) {
-            return calculateTaxes(price, origin);
+        public BigDecimal calculateTaxes(BigDecimal price, ProductOrigin origin) {
+            return doCalculateTaxes(price, origin);
         }
     },
-
-    FOOD {
-        @Override
-        public MonetaryAmount calculateTax(MonetaryAmount price, ProductOrigin origin) {
-            return price.multiply(origin.taxRate().getNumber());
-        }
-    },
-
     PERFUME {
         @Override
-        public MonetaryAmount calculateTax(MonetaryAmount price, ProductOrigin origin) {
-            return calculateTaxes(price, origin);
+        public BigDecimal calculateTaxes(BigDecimal price, ProductOrigin origin) {
+            return doCalculateTaxes(price, origin);
         }
     };
 
-    private static final MonetaryAmount GOODS_TAX_RATE = moneyOf("0.10");
+    private static final BigDecimal GOODS_TAX_RATE = moneyOf("0.10");
 
-    private static MonetaryAmount calculateTaxes(MonetaryAmount price, ProductOrigin origin) {
-        final MonetaryAmount goodTaxes = roundToTheNearest(price.multiply(GOODS_TAX_RATE.getNumber()));
-        final MonetaryAmount importationTaxes = roundToTheNearest(price.multiply(origin.taxRate().getNumber()));
+    private static BigDecimal doCalculateTaxes(BigDecimal price, ProductOrigin origin) {
+        final BigDecimal goodTaxes = roundToTheNearest(price.multiply(GOODS_TAX_RATE));
+        final BigDecimal importationTaxes = roundToTheNearest(price.multiply(origin.taxRate()));
 
         return goodTaxes.add(importationTaxes);
+        // After writing this code, I'm needing those packet of headache pills... :P
     }
 
-    private static final MonetaryAmount roundToTheNearest(MonetaryAmount amount) {
-        final BigDecimal originalPrice = amount.getNumber().numberValue(BigDecimal.class);
+    private static final BigDecimal roundToTheNearest(BigDecimal originalAmount) {
         final BigDecimal toTheNearest = new BigDecimal("0.05");
 
-        final BigDecimal rounded = originalPrice
-                .divide(toTheNearest, HALF_EVEN)
-                .setScale(0, HALF_UP)
+        final BigDecimal rounded = originalAmount
+                .divide(toTheNearest, 9, BigDecimal.ROUND_CEILING)
+                .setScale(0, RoundingMode.CEILING)
                 .multiply(toTheNearest);
 
         return moneyOf(rounded);
+    }
+
+    @Override
+    public BigDecimal calculateTaxes(BigDecimal price, ProductOrigin origin) {
+        return roundToTheNearest(price.multiply(origin.taxRate()));
     }
 
 }

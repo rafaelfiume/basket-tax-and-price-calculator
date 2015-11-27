@@ -1,6 +1,6 @@
 package com.rafaelfiume.receipt.details;
 
-import javax.money.MonetaryAmount;
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface BasketManager {
@@ -9,7 +9,7 @@ public interface BasketManager {
 
     List<Product> selectedProducts();
 
-    MonetaryAmount totalPrice();
+    BigDecimal totalPrice();
 
-    MonetaryAmount totalTaxes();
+    BigDecimal totalTaxes();
 }

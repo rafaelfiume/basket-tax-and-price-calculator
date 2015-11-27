@@ -9,7 +9,6 @@ import org.hamcrest.Matcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.money.MonetaryAmount;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -47,12 +46,31 @@ public class CalculateReceiptDetailsTest extends TestState {
         when(clientAddsToTheBasket(anImportedBoxOfChocolatesAt("10.00"), and(anImportedBottleOfPerfumeAt("47.50"))));
 
         then(theShoppingBasket(), lists(
-                one("imported box of chocolate", at("10.50")),
+                one("imported box of chocolates", at("10.50")),
                 and(one("imported bottle of perfume", at("54.65"))))
         );
 
         and(basketTotalTaxes(), is("7.65"));
         and(basketTotalPrice(), is("65.15"));
+    }
+
+    @Test
+    public void calculateTaxesAndTotalSalesPriceWhenClientBuysNationalAndImportedItems() throws Exception {
+        when(clientAddsToTheBasket(
+                anImportedBottleOfPerfumeAt("27.99"),
+                aBottleOfPerfumeAt("18.99"),
+                aPacketOfHeadachePills("9.75"),
+                and(anImportedBoxOfChocolatesAt("11.25"))));
+
+        then(theShoppingBasket(), lists(
+                one("imported bottle of perfume", at("32.19")),
+                one("bottle of perfume", at("20.89")),
+                one("packet of headache pills", at("9.75")),
+                and(one("imported box of chocolates", at("11.85"))))
+        );
+
+        and(basketTotalTaxes(), is("6.70"));
+        and(basketTotalPrice(), is("74.68"));
     }
 
     private ActionUnderTest clientAddsToTheBasket(Product... products) {
@@ -72,11 +90,11 @@ public class CalculateReceiptDetailsTest extends TestState {
         return capturedInputAndOutputs1 -> basketManager.selectedProducts();
     }
 
-    private StateExtractor<MonetaryAmount> basketTotalTaxes() {
+    private StateExtractor<BigDecimal> basketTotalTaxes() {
         return capturedInputAndOutputs1 -> basketManager.totalTaxes();
     }
 
-    private StateExtractor<MonetaryAmount> basketTotalPrice() {
+    private StateExtractor<BigDecimal> basketTotalPrice() {
         return capturedInputAndOutputs1 -> basketManager.totalPrice();
     }
 
@@ -93,14 +111,23 @@ public class CalculateReceiptDetailsTest extends TestState {
     }
 
     private Product anImportedBoxOfChocolatesAt(String price) {
-        return new Product("imported box of chocolate", FOOD, IMPORTED, price);
+        return new Product("imported box of chocolates", FOOD, IMPORTED, price);
     }
 
     private Product anImportedBottleOfPerfumeAt(String price) {
         return new Product("imported bottle of perfume", PERFUME, IMPORTED, price);
     }
 
-    private MonetaryAmount at(String price) {
+    private Product aBottleOfPerfumeAt(String price) {
+        return new Product("bottle of perfume", PERFUME, price);
+    }
+
+    private Product aPacketOfHeadachePills(String price) {
+        return new Product("packet of headache pills", MEDICINE, price);
+
+    }
+
+    private BigDecimal at(String price) {
         return MoneyDealer.moneyOf(price);
     }
 
@@ -108,8 +135,8 @@ public class CalculateReceiptDetailsTest extends TestState {
         return p;
     }
 
-    private <T> TestState and(StateExtractor<T> monetaryAmountStateExtractor, Matcher<T> monetaryAmountMatcher) throws Exception {
-        return then(monetaryAmountStateExtractor, monetaryAmountMatcher);
+    private <T> TestState and(StateExtractor<T> BigDecimalStateExtractor, Matcher<T> BigDecimalMatcher) throws Exception {
+        return then(BigDecimalStateExtractor, BigDecimalMatcher);
     }
 
     //

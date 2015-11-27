@@ -1,8 +1,8 @@
 package com.rafaelfiume.receipt.details;
 
-import javax.money.MonetaryAmount;
+import java.math.BigDecimal;
 
 public interface TaxCalculator {
 
-    MonetaryAmount calculateTax(MonetaryAmount price, ProductOrigin origin);
+    BigDecimal calculateTaxes(BigDecimal price, ProductOrigin origin);
 }

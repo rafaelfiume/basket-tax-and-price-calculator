@@ -5,7 +5,7 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.money.MonetaryAmount;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.rafaelfiume.receipt.details.MoneyDealer.moneyOf;
@@ -27,31 +27,31 @@ public class BasketTest {
     @Test
     public void shouleBeAbleToRetrieveAddedItemsToTheBasket() {
         // given
-        basket.add(a(book())).add(a(musicCD())).add(a(chocolateBar()));
+        basket.add(a(bookAt("12.49"))).add(a(musicCdAt("14.99"))).add(a(chocolateBarAt("0.85")));
 
         // when
         final List<Product> selectedProducts = basket.products();
 
         // then
         assertThat(selectedProducts.size(), is(3));
-        assertThat(selectedProducts, contains(one(book()), one(musicCD()), one(chocolateBar())));
+        assertThat(selectedProducts, contains(one(bookAt("12.49")), one(musicCdAt("14.99")), one(chocolateBarAt("0.85"))));
     }
 
     @Test
     public void shouleCalculateTotalTaxesForRegularProductsInTheBasket() {
-        basket.add(a(book())).add(a(musicCD())).add(a(chocolateBar()));
+        basket.add(a(bookAt("12.49"))).add(a(musicCdAt("14.99"))).add(a(chocolateBarAt("0.85")));
 
         assertThat(basket.totalTaxesToPay(), isTheAmountOf("1.50"));
     }
 
     @Test
     public void shouleCalculateTotalPriceForRegularProductsInTheBasket() {
-        basket.add(a(book())).add(a(musicCD())).add(a(chocolateBar()));
+        basket.add(a(bookAt("12.49"))).add(a(musicCdAt("14.99"))).add(a(chocolateBarAt("0.85")));
 
         assertThat(basket.totalPrice(), isTheAmountOf("29.83"));
     }
 
-    private Matcher<MonetaryAmount> isTheAmountOf(String price) {
+    private Matcher<BigDecimal> isTheAmountOf(String price) {
         return Matchers.is(moneyOf(price));
     }
 
