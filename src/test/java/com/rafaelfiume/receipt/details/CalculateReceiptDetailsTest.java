@@ -1,7 +1,14 @@
 package com.rafaelfiume.receipt.details;
 
 import com.googlecode.yatspec.junit.Notes;
+import com.googlecode.yatspec.junit.SpecResultListener;
 import com.googlecode.yatspec.junit.SpecRunner;
+import com.googlecode.yatspec.junit.WithCustomResultListeners;
+import com.googlecode.yatspec.plugin.sequencediagram.SequenceDiagramGenerator;
+import com.googlecode.yatspec.plugin.sequencediagram.SvgWrapper;
+import com.googlecode.yatspec.rendering.html.DontHighlightRenderer;
+import com.googlecode.yatspec.rendering.html.HtmlResultRenderer;
+import com.googlecode.yatspec.rendering.html.index.HtmlIndexRenderer;
 import com.googlecode.yatspec.state.givenwhenthen.ActionUnderTest;
 import com.googlecode.yatspec.state.givenwhenthen.StateExtractor;
 import com.googlecode.yatspec.state.givenwhenthen.TestState;
@@ -12,6 +19,7 @@ import org.junit.runner.RunWith;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.googlecode.totallylazy.Sequences.sequence;
 import static com.rafaelfiume.receipt.details.ProductCategory.*;
 import static com.rafaelfiume.receipt.details.ProductOrigin.IMPORTED;
 import static com.rafaelfiume.receipt.details.matchers.MonetaryAmountMatchersFactory.is;
@@ -20,7 +28,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 
 @RunWith(SpecRunner.class)
-public class CalculateReceiptDetailsTest extends TestState {
+public class CalculateReceiptDetailsTest extends TestState implements WithCustomResultListeners {
 
     private final BasketManager basketManager = new TransientInMemoryBasketManager();
 
@@ -75,6 +83,16 @@ public class CalculateReceiptDetailsTest extends TestState {
 
         and(basketTotalTaxes(), is("6.70"));
         and(basketTotalPrice(), is("74.68"));
+    }
+
+    @Override
+    public Iterable<SpecResultListener> getResultListeners() throws Exception {
+        return sequence(
+                new HtmlResultRenderer().
+                        withCustomHeaderContent(SequenceDiagramGenerator.getHeaderContentForModalWindows()).
+                        withCustomRenderer(SvgWrapper.class, new DontHighlightRenderer()),
+                new HtmlIndexRenderer()).
+                safeCast(SpecResultListener.class);
     }
 
     private ActionUnderTest clientAddsToTheBasket(Product... products) {
@@ -154,6 +172,5 @@ public class CalculateReceiptDetailsTest extends TestState {
     private Matcher<Iterable<? extends Product>> lists(Matcher<Product>... matchers) {
         return contains(matchers);
     }
-
 
 }
