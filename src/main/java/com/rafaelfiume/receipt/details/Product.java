@@ -1,6 +1,5 @@
 package com.rafaelfiume.receipt.details;
 
-
 import java.math.BigDecimal;
 
 import static com.rafaelfiume.receipt.details.ProductOrigin.REGULAR;
@@ -36,10 +35,6 @@ public class Product {
     }
 
     public BigDecimal priceWithTaxes() {
-        System.out.println("name: " + name);
-        System.out.println("price: " + price);
-        System.out.println("tax: " + tax());
-
         return price.add(tax());
     }
 }

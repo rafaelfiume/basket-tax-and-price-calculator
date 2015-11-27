@@ -16,7 +16,7 @@ After building the app with maven, or running the test with an IDE, check out th
 
     file:///{a.temp.directory}/com/rafaelfiume/receipt/details/CalculateReceiptDetailsTest.html
 
-The full path will be displayed in the console after <<<Yatspec output:>>>.
+The full path will be displayed in the console after => "Yatspec output:".
 
 ## User Stories
 
