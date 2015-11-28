@@ -2,7 +2,7 @@
 
 Demonstrates design and Tdd techniques calculating tax and total price for shopping baskets.
 
-You can see the specification [here](http://rafaelfiume.github.io/basket-tax-and-price-calculator), generated from CalculateReceiptDetailsTest sour``ce code
+You can see the specification [here](http://rafaelfiume.github.io/basket-tax-and-price-calculator), generated from CalculateReceiptDetailsTest source code
 and automatically updated when pushing code into master.
 
 ## Running the application locally (Requires Java 8)
