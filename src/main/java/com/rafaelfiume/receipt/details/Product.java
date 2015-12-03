@@ -2,7 +2,7 @@ package com.rafaelfiume.receipt.details;
 
 import java.math.BigDecimal;
 
-import static com.rafaelfiume.receipt.details.ProductOrigin.REGULAR;
+import static com.rafaelfiume.receipt.details.ProductOrigin.NATIONAL;
 
 public class Product {
 
@@ -12,7 +12,7 @@ public class Product {
     private final BigDecimal price;
 
     public Product(String name, ProductCategory category, String price) {
-        this(name, category, REGULAR, price);
+        this(name, category, NATIONAL, price);
     }
 
     public Product(String name, ProductCategory category, ProductOrigin origin, String price) {

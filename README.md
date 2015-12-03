@@ -36,4 +36,4 @@ The full path will be displayed in the console after => "Yatspec output:".
 * ~~Calculate taxes~~
 * ~~Calculate total price~~
 
-### Supports More Than One Customer (Parent Story)
+### Support More Than One Customer (Parent Story)

@@ -37,8 +37,8 @@ public class CalculateReceiptDetailsTest extends TestState implements WithCustom
             "and because I'm in a hurry ;)\n" +
             "As a proactive developer though, I created a to-be-played story for handling more than one customer (see README.md)")
     @Test
-    public void calculateTaxesAndTotalSalesPriceWhenClientBuysRegularItems() throws Exception {
-        when(clientAddsToTheBasket(aBookAt("12.49"), aMusicCdAt("14.99"), and(aChocolateBarAt("0.85"))));
+    public void calculateTaxesAndTotalSalesPriceWhenCustomerBuysRegularItems() throws Exception {
+        when(customerAddsToTheShoppingBasket(aBookAt("12.49"), aMusicCdAt("14.99"), and(aChocolateBarAt("0.85"))));
 
         then(theShoppingBasket(), lists(
                 one("book", at("12.49")),
@@ -52,8 +52,8 @@ public class CalculateReceiptDetailsTest extends TestState implements WithCustom
     }
 
     @Test
-    public void calculateTaxesAndTotalSalesPriceWhenClientBuysImportedItems() throws Exception {
-        when(clientAddsToTheBasket(anImportedBoxOfChocolatesAt("10.00"), and(anImportedBottleOfPerfumeAt("47.50"))));
+    public void calculateTaxesAndTotalSalesPriceWhenCustomerBuysImportedItems() throws Exception {
+        when(customerAddsToTheShoppingBasket(anImportedBoxOfChocolatesAt("10.00"), and(anImportedBottleOfPerfumeAt("47.50"))));
 
         then(theShoppingBasket(), lists(
                 one("imported box of chocolates", at("10.50")),
@@ -66,8 +66,8 @@ public class CalculateReceiptDetailsTest extends TestState implements WithCustom
     }
 
     @Test
-    public void calculateTaxesAndTotalSalesPriceWhenClientBuysNationalAndImportedItems() throws Exception {
-        when(clientAddsToTheBasket(
+    public void calculateTaxesAndTotalSalesPriceWhenCustomerBuysNationalAndImportedItems() throws Exception {
+        when(customerAddsToTheShoppingBasket(
                 anImportedBottleOfPerfumeAt("27.99"),
                 aBottleOfPerfumeAt("18.99"),
                 aPacketOfHeadachePills("9.75"),
@@ -95,14 +95,14 @@ public class CalculateReceiptDetailsTest extends TestState implements WithCustom
                 safeCast(SpecResultListener.class);
     }
 
-    private ActionUnderTest clientAddsToTheBasket(Product... products) {
+    private ActionUnderTest customerAddsToTheShoppingBasket(Product... products) {
         return (interestingGivens1, capturedInputAndOutputs1) -> {
-            addProductsToBasketTheFollowingProducts(products);
+            addToBasketTheFollowingProducts(products);
             return capturedInputAndOutputs1;
         };
     }
 
-    private void addProductsToBasketTheFollowingProducts(Product... products) {
+    private void addToBasketTheFollowingProducts(Product... products) {
         for (Product p : products) {
             basketManager.add(p);
         }
