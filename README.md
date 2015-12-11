@@ -1,4 +1,4 @@
-# basket-tax-and-price-calculator [![Build Status](https://travis-ci.org/rafaelfiume/basket-tax-and-price-calculator.svg?branch=master)](https://travis-ci.org/rafaelfiume/basket-tax-and-price-calculator)[![Apache 2.0 License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://github.com/rafaelfiume/basket-tax-and-price-calculator/blob/master/LICENSE)
+# basket-tax-and-price-calculator [![Build Status](https://travis-ci.org/rafaelfiume/basket-tax-and-price-calculator.svg?branch=master)](https://travis-ci.org/rafaelfiume/basket-tax-and-price-calculator) [![Apache 2.0 License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://github.com/rafaelfiume/basket-tax-and-price-calculator/blob/master/LICENSE)
 Demonstrates design and Tdd techniques calculating tax and total price for shopping baskets.
 
 You can see the specification [here](http://rafaelfiume.github.io/basket-tax-and-price-calculator),
