@@ -4,7 +4,7 @@ An example of how to use BDD to generate an _executable specification_, to _desi
 The basket component specification is available [here](http://rafaelfiume.github.io/basket-tax-and-price-calculator),
 generated from [CalculateReceiptDetailsTest.java](https://github.com/rafaelfiume/basket-tax-and-price-calculator/blob/master/src/test/java/com/rafaelfiume/receipt/details/CalculateReceiptDetailsTest.java) and automatically updated when pushing code into master.
 
-Note that the executable specification here is generated from a unit test, not from an acceptance test. This is to show that it can be important to have this kind of documentation on a component level too.
+Note that the executable specification here is generated from an unit test, not from an acceptance test. This is to show that it can be important to have this kind of documentation on a component level too.
 
 ## Running the application locally (Requires Java 8)
 
