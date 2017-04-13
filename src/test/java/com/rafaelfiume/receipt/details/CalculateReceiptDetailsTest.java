@@ -27,15 +27,16 @@ import static com.rafaelfiume.receipt.details.matchers.ProductMatcher.one;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 
+@Notes("The specification says nothing about customers (more than one); it just mentions \"I\" :-)\n" +
+            "Right now the app supports only *one* customer (both because I don't want to upset you guys implementing a feature that wasn't specified,\n" +
+            "and because I'm in a hurry ;)\n" +
+            "As a proactive developer though, <a href=\"https://github.com/rafaelfiume/basket-tax-and-price-calculator/issues/4\">here is a to-be-played story</a> for handling more than one customer")
 @RunWith(SpecRunner.class)
 public class CalculateReceiptDetailsTest extends TestState implements WithCustomResultListeners {
 
     private final BasketManager basketManager = new TransientInMemoryBasketManager();
 
-    @Notes("The specification says nothing about customers (more than one); it just mentions \"I\" :-)\n" +
-            "Right now the app supports only *one* customer (both because I don't want to upset you guys implementing a feature that wasn't specified,\n" +
-            "and because I'm in a hurry ;)\n" +
-            "As a proactive developer though, I created a to-be-played story for handling more than one customer (see README.md)")
+    @Notes("<a href=\"https://github.com/rafaelfiume/basket-tax-and-price-calculator/issues/1\">Story #1</a>")
     @Test
     public void calculateTaxesAndTotalSalesPriceWhenCustomerBuysRegularItems() throws Exception {
         when(customerAddsToTheShoppingBasket(aBookAt("12.49"), aMusicCdAt("14.99"), and(aChocolateBarAt("0.85"))));
@@ -51,6 +52,7 @@ public class CalculateReceiptDetailsTest extends TestState implements WithCustom
         and(basketTotalPrice(), is("29.83"));
     }
 
+    @Notes("<a href=\"https://github.com/rafaelfiume/basket-tax-and-price-calculator/issues/2\">Story #2</a>")
     @Test
     public void calculateTaxesAndTotalSalesPriceWhenCustomerBuysImportedItems() throws Exception {
         when(customerAddsToTheShoppingBasket(anImportedBoxOfChocolatesAt("10.00"), and(anImportedBottleOfPerfumeAt("47.50"))));
@@ -64,7 +66,8 @@ public class CalculateReceiptDetailsTest extends TestState implements WithCustom
         and(basketTotalTaxes(), is("7.65"));
         and(basketTotalPrice(), is("65.15"));
     }
-
+   
+    @Notes("<a href=\"https://github.com/rafaelfiume/basket-tax-and-price-calculator/issues/3\">Story #3</a>")
     @Test
     public void calculateTaxesAndTotalSalesPriceWhenCustomerBuysNationalAndImportedItems() throws Exception {
         when(customerAddsToTheShoppingBasket(
