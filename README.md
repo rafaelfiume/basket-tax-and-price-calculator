@@ -19,20 +19,3 @@ Build with:
     file:///{a.temp.directory}/com/rafaelfiume/receipt/details/CalculateReceiptDetailsTest.html
 
 The full path will be displayed in the console after => "Yatspec output:".
-
-## User Stories
-
-### ~~Calculate Basket Total Taxes and Price For *Non* Imported Items (Parent Story)~~
-* ~~List items in the basket~~
-* ~~Calculate taxes~~
-* ~~Calculate total price~~
-
-### ~~Calculate Basket Total Taxes and Price For Imported Items~~
-* ~~Calculate taxes~~
-* ~~Calculate total price~~
-
-### ~~Calculate Basket Total Taxes and Price For Mixed Items - Imported or not~~
-* ~~Calculate taxes~~
-* ~~Calculate total price~~
-
-### Support More Than One Customer (Parent Story)
