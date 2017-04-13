@@ -1,8 +1,10 @@
 # basket-tax-and-price-calculator [![Build Status](https://travis-ci.org/rafaelfiume/basket-tax-and-price-calculator.svg?branch=master)](https://travis-ci.org/rafaelfiume/basket-tax-and-price-calculator) [![Apache 2.0 License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://github.com/rafaelfiume/basket-tax-and-price-calculator/blob/master/LICENSE)
-Demonstrates design and Tdd techniques calculating tax and total price for shopping baskets.
+An example of how to use BDD to generate an _executable specification_, to _design_ and _implement_ a component (in this case, a shopping basket).
 
-The basket-tax-and-price-calculator specification is available [here](http://rafaelfiume.github.io/basket-tax-and-price-calculator),
-generated from [CalculateReceiptDetailsTest](https://github.com/rafaelfiume/basket-tax-and-price-calculator/blob/master/src/test/java/com/rafaelfiume/receipt/details/CalculateReceiptDetailsTest.java) source code and automatically updated when pushing code into master.
+The basket component specification is available [here](http://rafaelfiume.github.io/basket-tax-and-price-calculator),
+generated from [CalculateReceiptDetailsTest.java](https://github.com/rafaelfiume/basket-tax-and-price-calculator/blob/master/src/test/java/com/rafaelfiume/receipt/details/CalculateReceiptDetailsTest.java) and automatically updated when pushing code into master.
+
+Note that the executable specification here is generated from a unit test, not from an acceptance test. This is to show that it can be important to have this kind of documentation on a component level too.
 
 ## Running the application locally (Requires Java 8)
 
